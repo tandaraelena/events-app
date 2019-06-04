@@ -3,6 +3,7 @@ import { Segment, Form, Button } from "semantic-ui-react";
 
 class EventForm extends Component {
   render() {
+    const { handlerCancel } = this.props;
     return (
       <Segment>
         <Form>
@@ -29,7 +30,9 @@ class EventForm extends Component {
           <Button positive type="submit">
             Submit
           </Button>
-          <Button type="button">Cancel</Button>
+          <Button onClick={handlerCancel} type="button">
+            Cancel
+          </Button>
         </Form>
       </Segment>
     );
