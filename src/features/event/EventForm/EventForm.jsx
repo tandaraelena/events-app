@@ -9,6 +9,15 @@ class EventForm extends Component {
     venue: "",
     hostedBy: ""
   };
+
+  componentDidMount() {
+    if (this.props.selectedEvent !== null) {
+      this.setState({
+        ...this.props.selectedEvent
+      });
+    }
+  }
+
   handleFormSubmit = evt => {
     evt.preventDefault();
     this.props.handleCreateEvent(this.state);
