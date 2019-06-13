@@ -22,7 +22,7 @@ class EventForm extends Component {
   };
 
   render() {
-    const { handlerCancel } = this.props;
+    const { handleCancelForm } = this.props;
     const { title, date, city, venue, hostedBy } = this.state;
     return (
       <Segment>
@@ -76,7 +76,7 @@ class EventForm extends Component {
           <Button positive type="submit">
             Submit
           </Button>
-          <Button onClick={handlerCancel} type="button">
+          <Button onClick={handleCancelForm} type="button">
             Cancel
           </Button>
         </Form>
