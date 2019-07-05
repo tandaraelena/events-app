@@ -16,7 +16,7 @@ class App extends Component {
       <Fragment>
         <NavBar />
         <Container className="main">
-          <Route path="/" component={HomePage}/>
+          <Route exact path="/" component={HomePage}/>
           <Route path="/events" component={EventDashboard}/>
           <Route path="/events/:id" component={EventDetailedPage}/>
           <Route path="/people" component={PeopleDashboard}/>
