@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Grid} from "semantic-ui-react";
 import { connect } from 'react-redux';
 import EventList from "../EventList/EventList";
-import cuid from "cuid";
 import { createEvent, deleteEvent, updateEvent } from '../eventActions'
 
 const mapState = (state) => ({
@@ -16,15 +15,6 @@ const actions = {
 }
 
 class EventDashboard extends Component {
-  handleCreateEvent = newEvent => {
-    newEvent.id = cuid();
-    newEvent.hostPhotoURL = "/assets/images/test1.png";
-    this.props.createEvent(newEvent);
-  };
-
-  handleUpdateEvent = updatedEvent => {
-    this.props.updateEvent(updatedEvent);
-  };
 
   handleDeleteEvent = id => {
     this.props.deleteEvent(id);
