@@ -9,7 +9,6 @@ const SelectInput = ({
   options,
   meta: {touched, error}
 }) => {
-  console.log(multiple)
   return (
     <Form.Field error={touched && !!error}>
       <Select 
