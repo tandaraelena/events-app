@@ -5,6 +5,8 @@ import { Segment, Form, Button, Header, Grid } from "semantic-ui-react";
 import { createEvent, updateEvent } from '../eventActions'
 import cuid from "cuid";
 import TextInput from "../../../app/common/form/TextInput";
+import TextArea from "../../../app/common/form/TextArea";
+import SelectInput from "../../../app/common/form/SelectInput";
 
 const mapState = (state, ownProps) => {
   const eventId = ownProps.match.params.id; // check the react dev tool, search for EventForm and see the props
@@ -29,6 +31,15 @@ const actions = {
   createEvent,
   updateEvent
 }
+
+const category = [
+    {key: 'drinks', text: 'Drinks', value: 'drinks'},
+    {key: 'culture', text: 'Culture', value: 'culture'},
+    {key: 'film', text: 'Film', value: 'film'},
+    {key: 'food', text: 'Food', value: 'food'},
+    {key: 'music', text: 'Music', value: 'music'},
+    {key: 'travel', text: 'Travel', value: 'travel'},
+];
 
 class EventForm extends Component {
 handleFormSubmit = evt => {
@@ -59,11 +70,13 @@ handleFormSubmit = evt => {
               placeholder='Give the event a name'/>
             <Field
               name='category'
-              component={TextInput}
+              component={SelectInput}
+              options={category}
               placeholder='What is your event about?'/>
             <Field
               name='description'
-              component={TextInput}
+              component={TextArea}
+              rows={3}
               placeholder='Tell us about your event'/>
             <Header sub color='teal' content='Event Location Details'/>
             <Field

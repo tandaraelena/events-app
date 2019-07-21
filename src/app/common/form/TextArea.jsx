@@ -1,20 +1,21 @@
 import React from 'react'
 import { Form, Label } from 'semantic-ui-react'
 
-const TextInput = ({
+const TextArea = ({
   input,
+  rows,
   width,
   type,
   placeholder,
-  meta: {touched, error}
+  meta: { touched, error }
 }) => {
-  console.log(input)
+  console.log(placeholder)
   return (
     <Form.Field error={touched && !!error}>
-      <input {...input} placeholder={placeholder} type={type}/>
+      <textarea {...input} placeholder={placeholder} rows={rows}/>
       {touched && error && <Label basuc color='red'>{error}</Label>}
     </Form.Field>
   )
 }
 
-export default TextInput
+export default TextArea
