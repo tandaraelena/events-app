@@ -11,18 +11,13 @@ import SelectInput from "../../../app/common/form/SelectInput";
 const mapState = (state, ownProps) => {
   const eventId = ownProps.match.params.id; // check the react dev tool, search for EventForm and see the props
 
-  let event ={ 
-      title: "",
-      date: "",
-      city: "",
-      venue: "",
-      hostedBy: ""
-  }
+  let event ={}
+
   if (eventId && state.events.length > 0) {
     event = state.events.filter(event => event.id === eventId)[0]
   }
   return {
-    event
+    initialValues: event // initialValues is a prop from reduxForm()
   }
 
 }
@@ -42,28 +37,32 @@ const category = [
 ];
 
 class EventForm extends Component {
-handleFormSubmit = evt => {
-  evt.preventDefault();
-  if (this.state.id) {
-    this.props.updateEvent(this.state);
-    this.props.history.push(`/events/${this.state.id}`)
+  onFormSubmit = values => {
+    console.log(values)
+  if (this.props.initialValues.id) {
+    this.props.updateEvent(values);
+    this.props.history.push(`/events/${this.props.initialValues.id}`)
   } else {
     const newEvent = {
-      ...this.state,
+      ...values,
       id: cuid(),
-      hostPhotoURL: "/assets/images/test1.png"
+      hostPhotoURL: "/assets/images/test1.png",
+      hostedBy: 'Bob'
     }
     this.props.createEvent(newEvent);
-    this.props.history.push(`/events`)
+    this.props.history.push(`/events/${newEvent.id}`)
   }
 };
 
   render() {
+    /* handleSubmit(eventOrSubmit) : Function A function meant to be passed to <form onSubmit={handleSubmit}> or to <button onClick={handleSubmit}>. It will run validation, both sync and async, and, if the form is valid, it will call this.props.onSubmit(data) with the contents of the form data. */
+
+    const { history, initialValues } = this.props;
     return (
       <Grid.Column width={10}>
         <Segment>
           <Header sub color='teal' content='Event Details'/>
-          <Form onSubmit={this.handleFormSubmit} autoComplete="off">
+          <Form onSubmit={this.props.handleSubmit(this.onFormSubmit)} autoComplete="off">
             <Field 
               name='title'
               component={TextInput}
@@ -94,7 +93,12 @@ handleFormSubmit = evt => {
             <Button positive type="submit">
               Submit
             </Button>
-            <Button onClick={this.props.history.goBack} type="button">
+            <Button onClick={
+              initialValues.id 
+                ? () => history.push(`/events/${initialValues.id}`)
+                : () => history.push('/events')} 
+              type="button"
+            >
               Cancel
             </Button>
           </Form>
