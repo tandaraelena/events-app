@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux' 
 import { reduxForm, Field } from 'redux-form'
+import { 
+  composeValidators, 
+  combineValidators, 
+  isRequired, 
+  hasLengthGreaterThan
+} from 'revalidate'
 import { Segment, Form, Button, Header, Grid } from "semantic-ui-react";
 import { createEvent, updateEvent } from '../eventActions'
 import cuid from "cuid";
@@ -26,6 +32,17 @@ const actions = {
   createEvent,
   updateEvent
 }
+
+const validate = combineValidators({
+  title: isRequired({ message: 'The event title is required' }),
+  category: isRequired({ message: 'The category is required' }),
+  description: composeValidators(
+    isRequired({ message: 'The description is required' }),
+    hasLengthGreaterThan(4)({ message: 'Description needs to be at least 5 characters'})
+  )(),
+  city: isRequired('city'),
+  venue: isRequired('venue')
+})
 
 const category = [
     {key: 'drinks', text: 'Drinks', value: 'drinks'},
@@ -57,7 +74,7 @@ class EventForm extends Component {
   render() {
     /* handleSubmit(eventOrSubmit) : Function A function meant to be passed to <form onSubmit={handleSubmit}> or to <button onClick={handleSubmit}>. It will run validation, both sync and async, and, if the form is valid, it will call this.props.onSubmit(data) with the contents of the form data. */
 
-    const { history, initialValues } = this.props;
+    const { history, initialValues, invalid, submitting, pristine } = this.props;
     return (
       <Grid.Column width={10}>
         <Segment>
@@ -90,7 +107,7 @@ class EventForm extends Component {
               name='date'
               component={TextInput}
               placeholder='Event Date'/>
-            <Button positive type="submit">
+            <Button disabled={invalid || submitting || pristine} positive type="submit">
               Submit
             </Button>
             <Button onClick={
@@ -107,4 +124,4 @@ class EventForm extends Component {
     );
   }
 }
-export default connect(mapState, actions)(reduxForm({ form: 'eventForm' })(EventForm));
+export default connect(mapState, actions)(reduxForm({ form: 'eventForm', validate })(EventForm));
