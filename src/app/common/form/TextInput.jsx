@@ -11,7 +11,7 @@ const TextInput = ({
   return (
     <Form.Field error={touched && !!error}>
       <input {...input} placeholder={placeholder} type={type}/>
-      {touched && error && <Label basuc color='red'>{error}</Label>}
+      {touched && error && <Label basic color='red'>{error}</Label>}
     </Form.Field>
   )
 }

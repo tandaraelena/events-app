@@ -17,7 +17,7 @@ const SelectInput = ({
         placeholder={placeholder}
         options={options}
       />
-      {touched && error && <Label basuc color='red'>{error}</Label>}
+      {touched && error && <Label basic color='red'>{error}</Label>}
     </Form.Field>
   )
 }
