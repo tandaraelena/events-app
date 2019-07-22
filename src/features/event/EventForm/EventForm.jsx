@@ -13,6 +13,7 @@ import cuid from "cuid";
 import TextInput from "../../../app/common/form/TextInput";
 import TextArea from "../../../app/common/form/TextArea";
 import SelectInput from "../../../app/common/form/SelectInput";
+import DateInput from "../../../app/common/form/DateInput";
 
 const mapState = (state, ownProps) => {
   const eventId = ownProps.match.params.id; // check the react dev tool, search for EventForm and see the props
@@ -41,7 +42,8 @@ const validate = combineValidators({
     hasLengthGreaterThan(4)({ message: 'Description needs to be at least 5 characters'})
   )(),
   city: isRequired('city'),
-  venue: isRequired('venue')
+  venue: isRequired('venue'),
+  date: isRequired('date')
 })
 
 const category = [
@@ -105,8 +107,12 @@ class EventForm extends Component {
               placeholder='Event Venue'/>
             <Field
               name='date'
-              component={TextInput}
-              placeholder='Event Date'/>
+              component={DateInput}
+              dateFormat='dd LLL yyyy h:mm a'
+              showTimeSelect
+              timeFormat='HH:mm'
+              placeholder='Event Date'
+            />
             <Button disabled={invalid || submitting || pristine} positive type="submit">
               Submit
             </Button>
