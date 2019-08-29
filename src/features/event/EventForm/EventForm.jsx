@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux' 
 import { reduxForm, Field } from 'redux-form'
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import { 
   composeValidators, 
   combineValidators, 
@@ -58,6 +59,11 @@ const category = [
 ];
 
 class EventForm extends Component {
+  state = {
+    cityLatLng: {},
+    venueLatLng: {}
+  }
+
   onFormSubmit = values => {
     console.log(values)
   if (this.props.initialValues.id) {
@@ -75,6 +81,18 @@ class EventForm extends Component {
   }
 };
 
+handleCitySelect = selectedCity => {
+  geocodeByAddress(selectedCity)
+    .then(result => getLatLng(result[0]))
+    .then(latLng => {
+      this.setState({
+        cityLatLng: latLng
+      })
+    })
+    .then(() => {
+      this.props.change('city', selectedCity)
+    })
+}
   render() {
     /* handleSubmit(eventOrSubmit) : Function A function meant to be passed to <form onSubmit={handleSubmit}> or to <button onClick={handleSubmit}>. It will run validation, both sync and async, and, if the form is valid, it will call this.props.onSubmit(data) with the contents of the form data. */
 
@@ -102,7 +120,9 @@ class EventForm extends Component {
             <Field
               name='city'
               component={PlaceInput}
-              placeholder='Event City'/>
+              searchOptions={{types: ['(cities)']}}
+              onSelect={this.handleCitySelect}
+              placeholder='Event City' />
             <Field
               name='venue'
               component={PlaceInput}
