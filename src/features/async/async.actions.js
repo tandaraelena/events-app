@@ -5,12 +5,12 @@ export const asyncActionStarts = () => {
     type: ASYNC_ACTION_STARTS
   }
 }
-export const asyncActionStarts = () => {
+export const asyncActionFinish = () => {
   return {
     type: ASYNC_ACTION_FINISH
   }
 }
-export const asyncActionStarts = () => {
+export const asyncActionError = () => {
   return {
     type: ASYNC_ACTION_ERROR
   }
