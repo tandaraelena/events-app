@@ -24,7 +24,6 @@ const PlaceInput = ({
     >
       {({ getInputProps, getSuggestionItemProps, loading, suggestions }) => 
         (<Form.Field error={touched && !!error}>
-    {console.log(suggestions)}
             <input placeholder={placeholder} {...getInputProps({onBlur, placeholder})}/>
             {touched && error && <Label basic color='red'>{error}</Label>}
             {suggestions.length > 0 && (
