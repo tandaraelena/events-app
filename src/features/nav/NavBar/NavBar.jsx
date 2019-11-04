@@ -6,11 +6,9 @@ import SignedInMenu from "../menus/SignedInMenu";
 import { connect } from 'react-redux';
 import { withFirebase } from 'react-redux-firebase';
 import { openModal } from '../../modals/modalActions'
-import { signoutUser } from '../../auth/authActions'
 
 const actions = {
   openModal,
-  signoutUser
 }
 
 const mapState = (state) => ({

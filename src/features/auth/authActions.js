@@ -40,9 +40,3 @@ export const registerUser = user =>
       console.log(error)
     }
   };
-
-export const signoutUser = () => {
-  return {
-    type: SIGN_OUT_USER
-  }
-}
