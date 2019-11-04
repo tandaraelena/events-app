@@ -9,7 +9,7 @@ import { openModal } from '../../modals/modalActions'
 
 const actions = {
   openModal,
-}
+} 
 
 const mapState = (state) => ({
   auth: state.firebase.auth
